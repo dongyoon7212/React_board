@@ -29,27 +29,6 @@ export const profileHeader = css`
     background-color: #fafafa;
     border-bottom: 2px solid #dbdbdb;
 
-    & > img {
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        border: 2px solid #dbdbdb;
-        width: 250px;
-        height: 250px;
-        background-color: white;
-        margin-left: 30px;
-        transition: all 0.2s ease-in-out;
-
-        &:hover {
-            width: 280px;
-            height: 280px;
-            margin-left: 15px;
-            transition: all 0.2s ease-in-out;
-        }
-    }
-
     & > h3 {
         position: absolute;
         top: 40px;
@@ -78,6 +57,33 @@ export const profileHeader = css`
         &:active {
             background-color: #eee;
         }
+    }
+`;
+
+export const profileImgLayout = css`
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #dbdbdb;
+    margin-left: 25px;
+    transition: all 0.2s ease-in-out;
+
+    & > img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        width: 100%;
+        background-color: white;
+    }
+    &:hover {
+        width: 280px;
+        height: 280px;
+        margin-left: 10px;
+        transition: all 0.2s ease-in-out;
+        border: 2px solid #aaaaaa;
+
     }
 `;
 

@@ -1,16 +1,43 @@
 /** @jsxImportSource @emotion/react */
 import * as S from "./style";
 import img from "./bio-photo.jpg";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function Mypage() {
     const [isShow, setIsShow] = useState(false);
+    const [preview, setPreview] = useState("");
+    const imgFileRef = useRef();
+
+    const handleImgFileChange = (e) => {
+        const fileReader = new FileReader();
+
+        if (e.target.files.length === 0) {
+            return;
+        }
+
+        fileReader.onload = (e) => {
+            setPreview(e.target.result);
+        };
+
+        fileReader.readAsDataURL(e.target.files[0]);
+    };
 
     return (
         <div css={S.layout}>
             <h1>마이페이지</h1>
             <div css={S.profileHeader}>
-                <img src={img} alt="" />
+                <div
+                    css={S.profileImgLayout}
+                    onClick={() => imgFileRef.current.click()}
+                >
+                    <img src={preview} alt="" />
+                    <input
+                        style={{ display: "none" }}
+                        type="file"
+                        ref={imgFileRef}
+                        onChange={handleImgFileChange}
+                    />
+                </div>
                 <h3>dongyoon</h3>
                 <div css={S.profileInfoLayout}>
                     <div css={S.profileInfo}>
