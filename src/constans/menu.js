@@ -1,3 +1,4 @@
+import BoardWrite from "../pages/BoardWrite/BoardWrite";
 import Home from "../pages/Home/Home";
 import Mypage from "../pages/Mypage/Mypage";
 
@@ -18,7 +19,7 @@ export const MENUS = [
         id: 3,
         path: "/board/write",
         name: "글 작성하기",
-        element: <>글작성하기</>,
+        element: <BoardWrite />,
     },
     {
         id: 4,

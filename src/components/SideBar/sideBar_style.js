@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 
 export const layout = (isShow) => css`
+    z-index: 100;
     box-sizing: border-box;
     position: fixed;
     width: 300px;
