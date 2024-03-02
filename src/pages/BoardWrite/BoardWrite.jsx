@@ -4,24 +4,23 @@ import ReactQuill from "react-quill";
 import { QUILL_MODULES } from "../../constans/quillModules";
 import { useMaxSizeValidateInput } from "../../hooks/inputTitleHook";
 import { useQuillInput } from "../../hooks/quillHook";
-import { useRef } from "react";
+import { useLoadList } from "../../hooks/boardListHook";
 
 function BoardWrite() {
     const [inputValue, handleInputChange] = useMaxSizeValidateInput(20);
     const [quillValue, handleQuillChange] = useQuillInput();
-    const boardIdRef = useRef(0);
+    let [boardList, lastId] = useLoadList();
 
-    let newBoranList = [];
+    // let newBoranList = [];
     const handleSubmitButtonClick = () => {
         const board = {
-            boardId: boardIdRef.current + 1,
+            boardId: lastId + 1,
             boardTitle: inputValue,
             boardContent: quillValue,
         };
-        newBoranList = [...newBoranList, board];
-        console.log(boardIdRef.current);
-
-        localStorage.setItem("boardList", JSON.stringify(newBoranList));
+        boardList = [...boardList, board];
+        console.log(boardList);
+        // localStorage.setItem("boardList", JSON.stringify(boardList));
         alert("저장되었습니다.");
     };
     return (
