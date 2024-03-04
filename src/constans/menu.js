@@ -1,3 +1,4 @@
+import BoardList from "../pages/BoardList/BoardList";
 import BoardWrite from "../pages/BoardWrite/BoardWrite";
 import Home from "../pages/Home/Home";
 import Mypage from "../pages/Mypage/Mypage";
@@ -11,9 +12,9 @@ export const MENUS = [
     },
     {
         id: 2,
-        path: "/board",
+        path: "/board/list",
         name: "게시판",
-        element: <>게시판</>,
+        element: <BoardList />,
     },
     {
         id: 3,

@@ -3,8 +3,10 @@ import { useMemo } from "react";
 export function useLoadList() {
     const boardList = useMemo(() => {
         const lsBoardList = localStorage.getItem("boardList");
-        return !lsBoardList ? [] : JSON.stringify(lsBoardList);
+        return !lsBoardList ? [] : JSON.parse(lsBoardList);
     }, []);
+    
+    console.log(boardList);
 
     const lastIndex = boardList.length - 1;
     const firstId = lastIndex < 0 ? 0 : boardList[0].boardId;
