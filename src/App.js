@@ -4,6 +4,7 @@ import SideBar from "./components/SideBar/SideBar";
 import Header from "./components/Header/Header";
 import RootLayout from "./components/RootLayout/RootLayout";
 import { MENUS } from "./constans/menu";
+import Board from "./pages/Board/Board";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                             key={menu.id}
                         />
                     ))}
+                    <Route path={"/board/:boardId"} element={<Board />} />
                 </Routes>
             </RootLayout>
         </>

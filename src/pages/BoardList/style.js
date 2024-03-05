@@ -6,7 +6,6 @@ export const layout = css`
     align-items: center;
     padding-top: 70px;
     width: 100%;
-    /* height: 280px; */
 `;
 
 export const headerLayout = css`
