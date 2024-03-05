@@ -4,13 +4,19 @@ import ReactQuill from "react-quill";
 import { QUILL_MODULES } from "../../constans/quillModules";
 import { useMaxSizeValidateInput } from "../../hooks/inputTitleHook";
 import { useQuillInput } from "../../hooks/quillHook";
-import { useLoadList } from "../../hooks/boardListHook";
-import { useNavigate } from "react-router-dom";
+import {
+    useLoadList,
+    useLoadListByPageNumber,
+} from "../../hooks/boardListHook";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function BoardWrite() {
     const [inputValue, handleInputChange] = useMaxSizeValidateInput(20);
     const [quillValue, handleQuillChange] = useQuillInput();
     const { boardList, lastId } = useLoadList();
+    const [searchParams] = useSearchParams();
+    const page = parseInt(searchParams.get("page"));
+    const { endPageNumber } = useLoadListByPageNumber(page);
     const navigate = useNavigate();
 
     let newBoardList = [];
@@ -23,7 +29,7 @@ function BoardWrite() {
         newBoardList = [...boardList, board];
         localStorage.setItem("boardList", JSON.stringify(newBoardList));
         alert("저장되었습니다.");
-        navigate("/board/list");
+        navigate(`/board/list?page=${endPageNumber}`);
     };
     return (
         <div css={S.layout}>

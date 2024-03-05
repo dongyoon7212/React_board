@@ -14,6 +14,9 @@ export const MENUS = [
         id: 2,
         path: "/board/list",
         name: "게시판",
+        params: {
+            page: 1,
+        },
         element: <BoardList />,
     },
     {

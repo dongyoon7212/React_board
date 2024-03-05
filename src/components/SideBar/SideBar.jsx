@@ -19,7 +19,17 @@ function SideBar() {
                     {MENUS.map((menu) => (
                         <Link
                             css={S.menuItem}
-                            to={menu.path}
+                            to={`${menu.path}${
+                                !menu.params
+                                    ? ""
+                                    : "?" +
+                                      Object.entries(menu.params)
+                                          .map(
+                                              ([key, value]) =>
+                                                  key + "=" + value
+                                          )
+                                          .join("&")
+                            }`}
                             key={menu.id}
                             onClick={() => setIsShow(false)}
                         >
