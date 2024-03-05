@@ -9,13 +9,40 @@ export const layout = css`
     /* height: 280px; */
 `;
 
+export const headerLayout = css`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #dbdbdb;
+    box-sizing: border-box;
+`;
+
 export const title = css`
     font-size: 30px;
     font-weight: 600;
     padding: 20px 0;
     width: 100%;
-    border-bottom: 2px solid #dbdbdb;
     cursor: default;
+`;
+
+export const headerButton = css`
+    border: none;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+
+    &:hover {
+        background-color: #fafafa;
+    }
+
+    &:active {
+        background-color: #eee;
+    }
+`;
+
+export const headerButtonIcon = css`
+    font-size: 18px;
 `;
 
 export const listLayout = css`

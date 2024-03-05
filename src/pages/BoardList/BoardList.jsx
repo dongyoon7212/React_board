@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLoadListByPageNumber } from "../../hooks/boardListHook";
 import * as S from "./style";
+import { FaPencil } from "react-icons/fa6";
 
 const pageNumberLayout = (page) => css`
     display: flex;
@@ -28,9 +29,19 @@ function BoardList() {
     const page = parseInt(searchParams.get("page"));
     const { boardList, pageNumbers, totalPageCount, startPageNumber } =
         useLoadListByPageNumber(page);
+    const navigate = useNavigate();
+
+    const handleWriteButtonClick = () => {
+        navigate("/board/write");
+    };
     return (
         <div css={S.layout}>
-            <h1 css={S.title}>게시판</h1>
+            <div css={S.headerLayout}>
+                <h1 css={S.title}>게시판</h1>
+                <button css={S.headerButton} onClick={handleWriteButtonClick}>
+                    <FaPencil css={S.headerButtonIcon} />
+                </button>
+            </div>
             <ul css={S.listLayout}>
                 <li css={S.listHeader}>
                     <div>번호</div>

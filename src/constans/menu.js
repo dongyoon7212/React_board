@@ -1,3 +1,4 @@
+import Board from "../pages/Board/Board";
 import BoardList from "../pages/BoardList/BoardList";
 import BoardWrite from "../pages/BoardWrite/BoardWrite";
 import Home from "../pages/Home/Home";
@@ -27,9 +28,9 @@ export const MENUS = [
     },
     {
         id: 4,
-        path: "/notice",
+        path: "/notice/:boardId",
         name: "공지사항",
-        element: <>공지사항</>,
+        element: <Board />,
     },
     {
         id: 5,
