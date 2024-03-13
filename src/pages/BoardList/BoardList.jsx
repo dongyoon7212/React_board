@@ -31,6 +31,23 @@ function BoardList() {
         useLoadListByPageNumber(page);
     const navigate = useNavigate();
 
+    // let loadBoardList = [];
+    // const getBoardListAll = async () => {
+    //     try {
+    //         const response = await axios.get("http://localhost:8080/board");
+    //         loadBoardList = response.data;
+    //         console.log(loadBoardList);
+    //     } catch (error) {
+    //         console.log(error);
+    //     } finally {
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     getBoardListAll();
+    //     console.log(loadBoardList);
+    // }, []);
+
     const handleWriteButtonClick = () => {
         navigate("/board/write");
     };

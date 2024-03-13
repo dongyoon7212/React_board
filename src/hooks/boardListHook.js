@@ -23,6 +23,25 @@ export function useLoadListByPageNumber(page) {
         return loadBoardList;
     }, []);
 
+    // console.log(loadBoardList)
+
+    // let loadBoardList = [];
+
+    // const getBoardListAll = async () => {
+    //     try {
+    //         const response = await axios.get("http://localhost:8080/board");
+    //         loadBoardList = response.data;
+    //     } catch (error) {
+    //         console.log(error);
+    //     } finally {
+
+    //     }
+    // };
+
+    // getBoardListAll();
+
+    // console.log(loadBoardList)
+
     const boardList = loadBoardList.filter(
         (board, index) =>
             index > pageNumber * 15 - 16 && index < pageNumber * 15

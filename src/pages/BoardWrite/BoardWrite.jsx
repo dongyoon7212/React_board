@@ -4,33 +4,42 @@ import ReactQuill from "react-quill";
 import { QUILL_MODULES } from "../../constans/quillModules";
 import { useMaxSizeValidateInput } from "../../hooks/inputTitleHook";
 import { useQuillInput } from "../../hooks/quillHook";
-import {
-    useLoadList,
-    useLoadListByPageNumber,
-} from "../../hooks/boardListHook";
+import { useLoadListByPageNumber } from "../../hooks/boardListHook";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
 
 function BoardWrite() {
     const [inputValue, handleInputChange] = useMaxSizeValidateInput(20);
     const [quillValue, handleQuillChange] = useQuillInput();
-    const { boardList, lastId } = useLoadList();
     const [searchParams] = useSearchParams();
     const page = parseInt(searchParams.get("page"));
     const { endPageNumber } = useLoadListByPageNumber(page);
     const navigate = useNavigate();
 
-    let newBoardList = [];
     const handleSubmitButtonClick = () => {
         const board = {
-            boardId: lastId + 1,
             boardTitle: inputValue,
             boardContent: quillValue,
         };
-        newBoardList = [...boardList, board];
-        localStorage.setItem("boardList", JSON.stringify(newBoardList));
+
+        addBoardRequest(board);
+
         alert("저장되었습니다.");
         navigate(`/board/list?page=${endPageNumber}`);
     };
+
+    const addBoardRequest = async (board) => {
+        try {
+            const response = await axios.post(
+                "http://localhost:8080/board",
+                board
+            );
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div css={S.layout}>
             <h1>글 작성하기</h1>
