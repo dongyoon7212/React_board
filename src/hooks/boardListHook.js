@@ -1,80 +1,84 @@
-import { useMemo } from "react";
+import axios from "axios";
+import { useEffect, useMemo, useState } from "react";
 
-export function useLoadList() {
-    const boardList = useMemo(() => {
-        const lsBoardList = localStorage.getItem("boardList");
-        return !lsBoardList ? [] : JSON.parse(lsBoardList);
-    }, []);
+export function useLoadList(loadBoardList, boardId) {
+    const [findBoard, setFindBoard] = useState([]);
+    useEffect(() => {
+        setFindBoard(
+            loadBoardList.filter(
+                (board) => board.boardId === parseInt(boardId)
+            )[0]
+        );
+    }, [loadBoardList, boardId]);
 
-    const lastIndex = boardList.length - 1;
-    const firstId = lastIndex < 0 ? 0 : boardList[0].boardId;
-    const lastId = lastIndex < 0 ? 0 : boardList[lastIndex].boardId;
-    const size = boardList.length;
-
-    return { boardList, size, firstId, lastId };
+    return { loadBoardList, findBoard };
 }
 
 export function useLoadListByPageNumber(page) {
+    const [loadBoardList, setLoadBoardList] = useState([]);
     const pageNumber = parseInt(page);
+    const [pageNumberData, setPageNumberData] = useState({});
 
-    const loadBoardList = useMemo(() => {
-        const lsBoardList = localStorage.getItem("boardList");
-        const loadBoardList = !lsBoardList ? [] : JSON.parse(lsBoardList);
-        return loadBoardList;
+    const getBoardListAll = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/board");
+            setLoadBoardList(response.data);
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    useEffect(() => {
+        getBoardListAll();
     }, []);
-
-    // console.log(loadBoardList)
-
-    // let loadBoardList = [];
-
-    // const getBoardListAll = async () => {
-    //     try {
-    //         const response = await axios.get("http://localhost:8080/board");
-    //         loadBoardList = response.data;
-    //     } catch (error) {
-    //         console.log(error);
-    //     } finally {
-
-    //     }
-    // };
-
-    // getBoardListAll();
-
-    // console.log(loadBoardList)
 
     const boardList = loadBoardList.filter(
         (board, index) =>
-            index > pageNumber * 15 - 16 && index < pageNumber * 15
+            index > pageNumber * 12 - 13 && index < pageNumber * 12
     );
 
-    const size = loadBoardList.length;
+    useEffect(() => {
+        const size = loadBoardList.length;
 
-    const totalPageCount = Math.floor(
-        size % 15 === 0 ? size / 15 : size / 15 + 1
-    );
-    const startPageNumber =
-        pageNumber % 5 === 0
-            ? pageNumber - 4
-            : pageNumber - (pageNumber % 5) + 1;
-    const endPageNumber =
-        startPageNumber + 4 <= totalPageCount
-            ? startPageNumber + 4
-            : totalPageCount;
+        const totalPageCount = Math.floor(
+            size % 12 === 0 ? size / 12 : size / 12 + 1
+        );
+        const startPageNumber =
+            pageNumber % 5 === 0
+                ? pageNumber - 4
+                : pageNumber - (pageNumber % 5) + 1;
+        const endPageNumber =
+            startPageNumber + 4 <= totalPageCount
+                ? startPageNumber + 4
+                : totalPageCount;
+
+        setPageNumberData(() => {
+            return {
+                size,
+                totalPageCount,
+                startPageNumber,
+                endPageNumber,
+            };
+        });
+    }, [loadBoardList]);
 
     let pageNumbers = useMemo(() => {
         let newPageNumbers = [];
-        for (let i = startPageNumber; i <= endPageNumber; i++) {
+        for (
+            let i = pageNumberData.startPageNumber;
+            i <= pageNumberData.endPageNumber;
+            i++
+        ) {
             newPageNumbers = [...newPageNumbers, i];
         }
         return newPageNumbers;
-    }, [startPageNumber]);
+    }, [pageNumberData]);
 
     return {
         boardList,
-        size,
+        loadBoardList,
         pageNumbers,
-        totalPageCount,
-        startPageNumber,
-        endPageNumber,
+        pageNumberData,
     };
 }

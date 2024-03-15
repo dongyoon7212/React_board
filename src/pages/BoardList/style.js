@@ -49,7 +49,7 @@ export const listLayout = css`
     border-bottom: 2px solid #dbdbdb;
     background-color: #fafafa;
     width: 100%;
-    height: 70vh;
+    height: 71vh;
     overflow: hidden;
 `;
 

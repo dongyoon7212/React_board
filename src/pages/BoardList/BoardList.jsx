@@ -4,6 +4,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLoadListByPageNumber } from "../../hooks/boardListHook";
 import * as S from "./style";
 import { FaPencil } from "react-icons/fa6";
+import { useEffect } from "react";
 
 const pageNumberLayout = (page) => css`
     display: flex;
@@ -27,30 +28,14 @@ const pageNumberLayout = (page) => css`
 function BoardList() {
     const [searchParams] = useSearchParams();
     const page = parseInt(searchParams.get("page"));
-    const { boardList, pageNumbers, totalPageCount, startPageNumber } =
+    const { boardList, pageNumbers, pageNumberData } =
         useLoadListByPageNumber(page);
     const navigate = useNavigate();
-
-    // let loadBoardList = [];
-    // const getBoardListAll = async () => {
-    //     try {
-    //         const response = await axios.get("http://localhost:8080/board");
-    //         loadBoardList = response.data;
-    //         console.log(loadBoardList);
-    //     } catch (error) {
-    //         console.log(error);
-    //     } finally {
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     getBoardListAll();
-    //     console.log(loadBoardList);
-    // }, []);
 
     const handleWriteButtonClick = () => {
         navigate("/board/write");
     };
+
     return (
         <div css={S.layout}>
             <div css={S.headerLayout}>
@@ -84,7 +69,9 @@ function BoardList() {
                 {page !== 1 && (
                     <Link
                         to={`/board/list?page=${
-                            startPageNumber - 5 < 0 ? 1 : startPageNumber - 5
+                            pageNumberData?.startPageNumber - 5 < 0
+                                ? 1
+                                : pageNumberData?.startPageNumber - 5
                         }`}
                     >
                         &#171;
@@ -101,16 +88,22 @@ function BoardList() {
                         {pageNumber}
                     </Link>
                 ))}
-                {page !== totalPageCount && (
+                {page !== pageNumberData?.totalPageCount && (
                     <Link to={`/board/list?page=${page + 1}`}>&#62;</Link>
                 )}
-                {page !== totalPageCount && (
-                    <Link to={`/board/list?page=${startPageNumber + 5}`}>
+                {page !== pageNumberData?.totalPageCount && (
+                    <Link
+                        to={`/board/list?page=${
+                            pageNumberData?.startPageNumber + 5
+                        }`}
+                    >
                         &#187;
                     </Link>
                 )}
-                {page !== totalPageCount && (
-                    <Link to={`/board/list?page=${totalPageCount}`}>
+                {page !== pageNumberData?.totalPageCount && (
+                    <Link
+                        to={`/board/list?page=${pageNumberData?.totalPageCount}`}
+                    >
                         마지막으로
                     </Link>
                 )}
