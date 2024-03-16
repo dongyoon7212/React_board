@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as S from "./style";
 import ReactQuill from "react-quill";
-import { QUILL_MODULES } from "../../constans/quillModules";
+import { QUILL_MODULES } from "../../constants/quillModules";
 import { useMaxSizeValidateInput } from "../../hooks/inputTitleHook";
 import { useQuillInput } from "../../hooks/quillHook";
 import { useLoadListByPageNumber } from "../../hooks/boardListHook";

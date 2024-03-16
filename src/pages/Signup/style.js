@@ -25,6 +25,8 @@ export const inputContainer = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-bottom: 2px solid #dbdbdb;
+    padding-bottom: 30px;
 `;
 
 export const signupButton = css`

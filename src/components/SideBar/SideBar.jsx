@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as S from "./sideBar_style";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { useState } from "react";
-import { MENUS } from "../../constans/menu";
+import { MENUS } from "../../constants/menu";
 
 function SideBar() {
     const [isShow, setIsShow] = useState(false);

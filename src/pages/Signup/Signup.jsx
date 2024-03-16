@@ -1,14 +1,65 @@
 /** @jsxImportSource @emotion/react */
+import { useEffect, useState } from "react";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { useInput } from "../../hooks/useInput";
 import * as S from "./style";
 
 function Signup(props) {
-    const [usernameValue, handleUsernameChange] = useInput();
-    const [passwordValue, handlePassowrdChange] = useInput();
-    const [checkPasswordValue, handleCheckPasswordChange] = useInput();
-    const [nameValue, handleNameChange] = useInput();
-    const [emailValue, handleEmailChange] = useInput();
+    const [
+        username,
+        usernameChange,
+        usernameMessage,
+        setUsernameValue,
+        setUsernameMessage,
+    ] = useInput("username");
+    const [password, passwordChange, passwordMessage] = useInput("password");
+    const [checkPassword, checkPasswordChange] = useInput("checkPassword");
+    const [name, nameChange, nameMessage] = useInput("name");
+    const [email, emailChange, emailMessage] = useInput("email");
+    const [checkPasswordMessage, setCheckPasswordMessage] = useState(null);
+
+    useEffect(() => {
+        if (!checkPassword || !password) {
+            setCheckPasswordMessage(() => null);
+            return;
+        }
+
+        if (checkPassword === password) {
+            setCheckPasswordMessage(() => {
+                return {
+                    type: "success",
+                    text: "",
+                };
+            });
+        } else {
+            setCheckPasswordMessage(() => {
+                return {
+                    type: "error",
+                    text: "비밀번호가 일치하지 않습니다.",
+                };
+            });
+        }
+    }, [checkPassword, password]);
+
+    const handleSignupSubmit = () => {
+        const checkFlags = [
+            usernameMessage?.type,
+            passwordMessage?.type,
+            checkPasswordMessage?.type,
+            nameMessage?.type,
+            emailMessage?.type,
+        ];
+
+        if (
+            checkFlags.includes("error") ||
+            checkFlags.includes(undefined) ||
+            checkFlags.includes(null)
+        ) {
+            alert("회원가입 정보를 확인해주세요.");
+            return;
+        }
+    };
+
     return (
         <div css={S.layout}>
             <div css={S.signupBox}>
@@ -18,36 +69,41 @@ function Signup(props) {
                         type={"text"}
                         name={"username"}
                         placeholder={"사용자이름"}
-                        value={usernameValue}
-                        onChange={handleUsernameChange}
+                        value={username}
+                        onChange={usernameChange}
+                        message={usernameMessage}
                     />
                     <AuthPageInput
                         type={"password"}
                         name={"password"}
                         placeholder={"비밀번호"}
-                        value={passwordValue}
-                        onChange={handlePassowrdChange}
+                        value={password}
+                        onChange={passwordChange}
+                        message={passwordMessage}
                     />
                     <AuthPageInput
                         type={"password"}
                         name={"checkPassword"}
                         placeholder={"비밀번호 확인"}
-                        value={checkPasswordValue}
-                        onChange={handleCheckPasswordChange}
+                        value={checkPassword}
+                        onChange={checkPasswordChange}
+                        message={checkPasswordMessage}
                     />
                     <AuthPageInput
                         type={"text"}
                         name={"name"}
                         placeholder={"이름"}
-                        value={nameValue}
-                        onChange={handleNameChange}
+                        value={name}
+                        onChange={nameChange}
+                        message={nameMessage}
                     />
                     <AuthPageInput
                         type={"text"}
                         email={"email"}
                         placeholder={"이메일"}
-                        value={emailValue}
-                        onChange={handleEmailChange}
+                        value={email}
+                        onChange={emailChange}
+                        message={emailMessage}
                     />
                 </div>
                 <button css={S.signupButton}>가입하기</button>
