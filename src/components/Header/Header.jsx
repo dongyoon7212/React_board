@@ -6,7 +6,7 @@ function Header() {
         <>
             <header css={S.header}>
                 <div></div>
-                <h1 css={S.headerTitle}>마음의 소리</h1>
+                <h1 css={S.headerTitle}></h1>
                 <button css={S.sideBarButton}>로그인</button>
             </header>
         </>
