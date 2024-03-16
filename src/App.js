@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import RootLayout from "./components/RootLayout/RootLayout";
 import { MENUS } from "./constans/menu";
 import Board from "./pages/Board/Board";
+import Signup from "./pages/Signup/Signup";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                         />
                     ))}
                     <Route path={"/board/:boardId"} element={<Board />} />
+                    <Route path="/auth/signup" element={<Signup />} />
                 </Routes>
             </RootLayout>
         </>

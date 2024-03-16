@@ -13,7 +13,7 @@ function BoardWrite() {
     const [quillValue, handleQuillChange] = useQuillInput();
     const [searchParams] = useSearchParams();
     const page = parseInt(searchParams.get("page"));
-    const { endPageNumber } = useLoadListByPageNumber(page);
+    const { pageNumberData } = useLoadListByPageNumber(page);
     const navigate = useNavigate();
 
     const handleSubmitButtonClick = () => {
@@ -25,7 +25,7 @@ function BoardWrite() {
         addBoardRequest(board);
 
         alert("저장되었습니다.");
-        navigate(`/board/list?page=${endPageNumber}`);
+        navigate(`/board/list?page=${pageNumberData.endPageNumber}`);
     };
 
     const addBoardRequest = async (board) => {
