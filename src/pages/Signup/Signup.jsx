@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { useInput } from "../../hooks/useInput";
 import * as S from "./style";
+import { signupRequest } from "../../apis/api/signup";
+import { useNavigate } from "react-router-dom";
 
 function Signup(props) {
     const [
@@ -17,6 +19,7 @@ function Signup(props) {
     const [name, nameChange, nameMessage] = useInput("name");
     const [email, emailChange, emailMessage] = useInput("email");
     const [checkPasswordMessage, setCheckPasswordMessage] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!checkPassword || !password) {
@@ -58,6 +61,38 @@ function Signup(props) {
             alert("회원가입 정보를 확인해주세요.");
             return;
         }
+
+        signupRequest({
+            username,
+            password,
+            name,
+            email,
+        })
+            .then((response) => {
+                console.log(response);
+                if (response.status === 201) {
+                    alert("회원가입이 완료되었습니다.");
+                    navigate("/auth/signin");
+                }
+            })
+            .catch((error) => {
+                if (error.response.status === 400) {
+                    const errorMap = error.response.data;
+                    const errorEntries = Object.entries(errorMap);
+                    for (let [k, v] of errorEntries) {
+                        if (k === "username") {
+                            setUsernameMessage(() => {
+                                return {
+                                    type: "error",
+                                    text: v,
+                                };
+                            });
+                        }
+                    }
+                } else {
+                    alert("회원가입 오류");
+                }
+            });
     };
 
     return (
@@ -106,7 +141,9 @@ function Signup(props) {
                         message={emailMessage}
                     />
                 </div>
-                <button css={S.signupButton}>가입하기</button>
+                <button css={S.signupButton} onClick={handleSignupSubmit}>
+                    가입하기
+                </button>
             </div>
         </div>
     );
