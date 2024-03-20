@@ -6,25 +6,15 @@ import RootLayout from "./components/RootLayout/RootLayout";
 import { MENUS } from "./constants/menu";
 import Board from "./pages/Board/Board";
 import Signup from "./pages/Signup/Signup";
+import Signin from "./pages/SignIn/Signin";
+import AuthRoute from "./routes/AuthRoute";
 
 function App() {
     return (
         <>
-            <Reset />
-            <Header />
-            <SideBar />
+
             <RootLayout>
-                <Routes>
-                    {MENUS.map((menu) => (
-                        <Route
-                            path={menu.path}
-                            element={menu.element}
-                            key={menu.id}
-                        />
-                    ))}
-                    <Route path={"/board/:boardId"} element={<Board />} />
-                    <Route path="/auth/signup" element={<Signup />} />
-                </Routes>
+                <AuthRoute />
             </RootLayout>
         </>
     );

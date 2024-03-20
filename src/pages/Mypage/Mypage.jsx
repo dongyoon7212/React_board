@@ -1,11 +1,19 @@
 /** @jsxImportSource @emotion/react */
+import { useQueryClient } from "react-query";
 import * as S from "./style";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Mypage() {
     const [isShow, setIsShow] = useState(false);
     const [preview, setPreview] = useState("");
     const imgFileRef = useRef();
+    const queryClient = useQueryClient();
+    const principalStatus = queryClient.getQueryState("principalQuery");
+    const principalData = queryClient.getQueryData("principalQuery");
+
+    useEffect(() => {
+        console.log(principalData.data);
+    }, []);
 
     const handleImgFileChange = (e) => {
         const fileReader = new FileReader();
@@ -37,19 +45,11 @@ function Mypage() {
                         onChange={handleImgFileChange}
                     />
                 </div>
-                <h3>dongyoon</h3>
+                <h3>{principalData.data.username}</h3>
                 <div css={S.profileInfoLayout}>
                     <div css={S.profileInfo}>
                         <h3>이메일</h3>
-                        <p>dongyoon7212@naver.com</p>
-                    </div>
-                    <div css={S.profileInfo}>
-                        <h3>생년월일</h3>
-                        <p>1999.02.26</p>
-                    </div>
-                    <div css={S.profileInfo}>
-                        <h3>주소</h3>
-                        <p>부산광역시 사하구</p>
+                        <p>{principalData.data.email}</p>
                     </div>
                 </div>
                 <button onClick={() => setIsShow(!isShow)}>수정하기</button>
@@ -63,16 +63,6 @@ function Mypage() {
                 <div css={S.inputBox}>
                     <input css={S.profileInput} type="text" required />
                     <label>이메일</label>
-                    <span></span>
-                </div>
-                <div css={S.inputBox}>
-                    <input css={S.profileInput} type="text" required />
-                    <label>생년월일</label>
-                    <span></span>
-                </div>
-                <div css={S.inputBox}>
-                    <input css={S.profileInput} type="text" required />
-                    <label>주소</label>
                     <span></span>
                 </div>
                 <button css={S.saveButton} onClick={() => setIsShow(!isShow)}>

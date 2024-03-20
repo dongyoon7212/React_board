@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as S from "./style";
 import { FaPencil } from "react-icons/fa6";
-
 import Lottie from "react-lottie";
 import animationData from "./Animation - 1709116024695.json";
 import { useNavigate } from "react-router-dom";

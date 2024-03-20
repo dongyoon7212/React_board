@@ -20,7 +20,7 @@ export const headerTitle = css`
     transform: translateX(-50%);
     font-size: 40px;
     font-weight: 600;
-    cursor: default;
+    cursor: pointer;
 `;
 
 export const sideBarButton = css`
@@ -33,4 +33,5 @@ export const sideBarButton = css`
     margin-right: 20px;
     font-size: 16px;
     font-weight: 600;
+    cursor: pointer;
 `;
