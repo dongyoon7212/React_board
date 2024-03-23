@@ -31,9 +31,8 @@ function Header() {
             return config;
         });
         queryClient.refetchQueries("principalQuery");
-        setLogin(false);
         alert("로그아웃 되었습니다.");
-        navigate("/");
+        window.location.replace("/auth/signin");
     };
 
     return (

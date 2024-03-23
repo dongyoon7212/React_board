@@ -4,7 +4,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLoadListByPageNumber } from "../../hooks/boardListHook";
 import * as S from "./style";
 import { FaPencil } from "react-icons/fa6";
-import { useEffect } from "react";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
 
 const pageNumberLayout = (page) => css`
     display: flex;
@@ -26,6 +26,7 @@ const pageNumberLayout = (page) => css`
 `;
 
 function BoardList() {
+    useAuthCheck();
     const [searchParams] = useSearchParams();
     const page = parseInt(searchParams.get("page"));
     const { boardList, pageNumbers, pageNumberData } =

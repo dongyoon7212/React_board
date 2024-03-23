@@ -7,8 +7,10 @@ import { useQuillInput } from "../../hooks/quillHook";
 import { useLoadListByPageNumber } from "../../hooks/boardListHook";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
 
 function BoardWrite() {
+    useAuthCheck();
     const [inputValue, handleInputChange] = useMaxSizeValidateInput(20);
     const [quillValue, handleQuillChange] = useQuillInput();
     const [searchParams] = useSearchParams();

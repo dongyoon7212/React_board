@@ -23,7 +23,7 @@ function Signin(props) {
                 if (response.status === 200) {
                     const accessToken = response.data;
                     localStorage.setItem("AccessToken", accessToken);
-                    navigate("/");
+                    window.location.replace("/");
                 }
             })
             .catch((error) => {
