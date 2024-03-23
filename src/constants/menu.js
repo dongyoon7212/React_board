@@ -27,13 +27,7 @@ export const MENUS = [
     },
     {
         id: 4,
-        path: "/notice",
-        name: "공지사항",
-        element: <>공지사항</>,
-    },
-    {
-        id: 5,
-        path: "/mypage",
+        path: "/account/mypage",
         name: "마이페이지",
         element: <Mypage />,
     },

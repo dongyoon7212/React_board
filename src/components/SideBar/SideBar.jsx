@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Link } from "react-router-dom";
-import * as S from "./sideBar_style";
+import * as S from "./style";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { useState } from "react";
 import { MENUS } from "../../constants/menu";

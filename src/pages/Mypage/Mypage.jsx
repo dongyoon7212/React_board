@@ -1,19 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { useQueryClient } from "react-query";
 import * as S from "./style";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
 
 function Mypage() {
+    useAuthCheck();
     const [isShow, setIsShow] = useState(false);
     const [preview, setPreview] = useState("");
     const imgFileRef = useRef();
     const queryClient = useQueryClient();
-    const principalStatus = queryClient.getQueryState("principalQuery");
     const principalData = queryClient.getQueryData("principalQuery");
-
-    useEffect(() => {
-        console.log(principalData.data);
-    }, []);
 
     const handleImgFileChange = (e) => {
         const fileReader = new FileReader();
@@ -45,11 +42,11 @@ function Mypage() {
                         onChange={handleImgFileChange}
                     />
                 </div>
-                <h3>{principalData.data.username}</h3>
+                <h3>{principalData?.data?.username}</h3>
                 <div css={S.profileInfoLayout}>
                     <div css={S.profileInfo}>
                         <h3>이메일</h3>
-                        <p>{principalData.data.email}</p>
+                        <p>{principalData?.data?.email}</p>
                     </div>
                 </div>
                 <button onClick={() => setIsShow(!isShow)}>수정하기</button>

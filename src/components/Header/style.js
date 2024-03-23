@@ -4,6 +4,8 @@ export const header = css`
     z-index: 99;
     box-sizing: border-box;
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 70px;
     border-bottom: 3px solid #dbdbdb;

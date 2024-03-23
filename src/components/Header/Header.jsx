@@ -1,19 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { useNavigate } from "react-router-dom";
-import * as S from "./header_style";
+import * as S from "./style";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import instance from "../../apis/utils/instance";
 
 function Header() {
-    const [isLogin, setLogin] = useState();
+    const [isLogin, setLogin] = useState(false);
     const queryClient = useQueryClient();
     const principalQueryStatus = queryClient.getQueryState("principalQuery");
     const navigate = useNavigate();
 
     useEffect(() => {
         setLogin(() => principalQueryStatus.status === "success");
-        console.log(isLogin);
+        console.log(principalQueryStatus.status);
     }, [principalQueryStatus.status]);
 
     const handleSigninClick = () => {
@@ -31,6 +31,8 @@ function Header() {
             return config;
         });
         queryClient.refetchQueries("principalQuery");
+        setLogin(false);
+        alert("로그아웃 되었습니다.");
         navigate("/");
     };
 
